@@ -12,15 +12,17 @@ export async function getStaticPaths() {
     const { stacks } = FILTER_GROUPS[category];
     const tips = allTips
       .filter((e) => e.data.id && stacks.includes(e.id.split("/")[0]))
-      .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+      .sort(
+        (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+      );
     return { params: { category }, props: { tips } };
   });
 }
 
 const { category } = Astro.params;
-const { tips }     = Astro.props;
-const group        = FILTER_GROUPS[category!];
-const canonical    = `${SITE_URL}/browse/${category}`;
+const { tips } = Astro.props;
+const group = FILTER_GROUPS[category!];
+const canonical = `${SITE_URL}/browse/${category}`;
 
 const STACK_LABELS: Record<string, string> = {
   nest: "NestJS",
@@ -36,10 +38,12 @@ const stacksWithTips = [...new Set(tips.map((e) => e.id.split("/")[0]))];
   canonical={canonical}
 >
   <div class="max-w-[1200px] mx-auto px-6 py-12">
-
     <!-- Header -->
     <div class="mb-10" data-reveal>
-      <a href="/" class="inline-flex items-center gap-1 text-[13px] font-semibold text-ink-mute no-underline mb-5">
+      <a
+        href="/"
+        class="inline-flex items-center gap-1 text-[13px] font-semibold text-ink-mute no-underline mb-5"
+      >
         ← Home
       </a>
 
@@ -47,74 +51,96 @@ const stacksWithTips = [...new Set(tips.map((e) => e.id.split("/")[0]))];
         <div>
           <div class="flex items-center gap-[10px] mb-2">
             <span class="inline-block w-[10px] h-[10px] rounded-full shrink-0 bg-primary"></span>
-            <h1 class="font-serif text-[clamp(28px,4vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-none">
+            <h1
+              class="font-serif text-[clamp(28px,4vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-none"
+            >
               {group.label}
             </h1>
           </div>
           <p class="text-[14px] font-semibold text-ink-mute">
-            {tips.length} tip{tips.length !== 1 ? "s" : ""} across {stacksWithTips.length} technolog{stacksWithTips.length !== 1 ? "ies" : "y"} · newest first
+            {tips.length} tip{tips.length !== 1 ? "s" : ""} across {stacksWithTips.length} technolog{
+              stacksWithTips.length !== 1 ? "ies" : "y"
+            } · newest first
           </p>
         </div>
 
         <!-- Stack pills -->
         <div class="flex flex-wrap gap-[6px]">
-          {stacksWithTips.map((s) => {
-            const label = STACK_LABELS[s] ?? (s.charAt(0).toUpperCase() + s.slice(1));
-            return (
-              <a
-                href={`/${s}`}
-                class="font-mono text-[11px] font-semibold tracking-[0.08em] uppercase px-[10px] py-1 rounded-full no-underline border border-primary/20 text-primary bg-primary/0 hover:bg-primary/8 transition-colors"
-              >
-                {label}
-              </a>
-            );
-          })}
+          {
+            stacksWithTips.map((s) => {
+              const label = STACK_LABELS[s] ?? s.charAt(0).toUpperCase() + s.slice(1);
+              return (
+                <a
+                  href={`/${s}`}
+                  class="font-mono text-[11px] font-semibold tracking-[0.08em] uppercase px-[10px] py-1 rounded-full no-underline border border-primary/20 text-primary bg-primary/0 hover:bg-primary/8 transition-colors"
+                >
+                  {label}
+                </a>
+              );
+            })
+          }
         </div>
       </div>
     </div>
 
     <!-- Tips grid -->
-    {tips.length > 0 ? (
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-        {tips.map((e) => {
-          const stack = e.id.split("/")[0];
-          const slug  = e.id.split("/")[1].replace(".md", "");
-          const { explanation } = parseTipBody(e.body ?? "", e.data.language);
-          return (
-            <TipCard
-              id={e.data.id ?? e.id}
-              title={e.data.title}
-              stack={stack}
-              slug={slug}
-              tags={e.data.tags}
-              explanation={explanation}
-              authorName={e.data.author.name}
-              authorGithub={e.data.author.github}
-              publishedAt={e.data.publishedAt}
-            />
-          );
-        })}
-      </div>
-    ) : (
-      <p class="text-center text-[15px] font-semibold text-ink-mute py-20">
-        No tips yet. <a href="/contribute" class="text-primary no-underline">Be first to contribute →</a>
-      </p>
-    )}
+    {
+      tips.length > 0 ? (
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+          {tips.map((e) => {
+            const stack = e.id.split("/")[0];
+            const slug = e.id.split("/")[1].replace(".md", "");
+            const { explanation } = parseTipBody(e.body ?? "", e.data.language);
+            return (
+              <TipCard
+                id={e.data.id ?? e.id}
+                title={e.data.title}
+                stack={stack}
+                slug={slug}
+                tags={e.data.tags}
+                explanation={explanation}
+                authorName={e.data.author.name}
+                authorGithub={e.data.author.github}
+                publishedAt={e.data.publishedAt}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-center text-[15px] font-semibold text-ink-mute py-20">
+          No tips yet.{" "}
+          <a href="/contribute" class="text-primary no-underline">
+            Be first to contribute →
+          </a>
+        </p>
+      )
+    }
   </div>
 </BaseLayout>
 
 <script>
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
 
-gsap.fromTo("[data-reveal]", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
-
-document.querySelectorAll<HTMLElement>("[data-reveal-group]").forEach((group) => {
-  gsap.fromTo(Array.from(group.children) as HTMLElement[],
+  gsap.fromTo(
+    "[data-reveal]",
     { opacity: 0, y: 24 },
-    { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.07,
-      scrollTrigger: { trigger: group, start: "top 88%", once: true } }
+    { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
   );
-});
+
+  document.querySelectorAll<HTMLElement>("[data-reveal-group]").forEach((group) => {
+    gsap.fromTo(
+      Array.from(group.children) as HTMLElement[],
+      { opacity: 0, y: 24 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        stagger: 0.07,
+        scrollTrigger: { trigger: group, start: "top 88%", once: true },
+      }
+    );
+  });
 </script>

@@ -9,13 +9,18 @@ interface Props {
 const { totalTips, totalContribs, totalStacks } = Astro.props;
 ---
 
-<div class="max-w-[1200px] mx-auto px-6 py-24 w-full relative flex flex-col items-center" style="z-index:3;">
+<div
+  class="max-w-[1200px] mx-auto px-6 py-24 w-full relative flex flex-col items-center"
+  style="z-index:3;"
+>
   <div class="max-w-[680px] w-full text-center">
     <span
       data-hero="eyebrow"
       style="display:inline-flex;align-items:center;gap:6px;background:rgba(185,185,249,0.12);border:1px solid rgba(185,185,249,0.25);color:#b9b9f9;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:9999px;margin-bottom:24px;white-space:nowrap;"
     >
-      <span style="width:5px;height:5px;border-radius:50%;background:#b9b9f9;display:inline-block;opacity:0.8;"></span>
+      <span
+        style="width:5px;height:5px;border-radius:50%;background:#b9b9f9;display:inline-block;opacity:0.8;"
+      ></span>
       Community-curated<span class="hidden sm:inline">· Contributor-credited</span>
     </span>
 
@@ -40,8 +45,12 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
       data-hero="body"
       style="font-size:16px;font-weight:600;line-height:1.65;color:rgba(255,255,255,0.55);max-width:400px;margin:0 auto 36px;"
     >
-      Atomic developer tips for <span id="stack-cycle" class="min-w-16" style="color:#b9b9f9;display:inline-block;transition:opacity 0.28s ease,transform 0.28s ease;">Laravel</span> engineers.
-      Open a new tab. Learn one thing. Ship better code.
+      Atomic developer tips for <span
+        id="stack-cycle"
+        class="min-w-16"
+        style="color:#b9b9f9;display:inline-block;transition:opacity 0.28s ease,transform 0.28s ease;"
+        >Laravel</span
+      > engineers. Open a new tab. Learn one thing. Ship better code.
     </p>
 
     <div data-hero="cta" class="flex flex-wrap items-center justify-center gap-3">
@@ -53,7 +62,15 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
         style="display:inline-flex;align-items:center;gap:8px;background:#ffffff;color:#0c1220;font-size:15px;font-weight:600;padding:13px 28px;border-radius:9999px;text-decoration:none;transition:opacity 0.15s;white-space:nowrap;"
       >
         Install for Chrome — free
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        >
       </a>
       <a
         href="/contribute"
@@ -71,19 +88,25 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
       class="flex flex-wrap items-center justify-center gap-6 mt-10 pt-8"
       style="border-top: 1px solid rgba(255,255,255,0.08);"
     >
-      {[
-        { val: totalTips,     label: "tips" },
-        { val: totalContribs, label: "contributors" },
-        { val: totalStacks,   label: "stacks" },
-      ].map(({ val, label }) => (
-        <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
-          <span
-            style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-0.5px;font-feature-settings:'tnum';"
-            data-count={val}
-          >{val}</span>
-          <span style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.02em;">{label}</span>
-        </div>
-      ))}
+      {
+        [
+          { val: totalTips, label: "tips" },
+          { val: totalContribs, label: "contributors" },
+          { val: totalStacks, label: "stacks" },
+        ].map(({ val, label }) => (
+          <div style="display:flex; flex-direction:column; gap:2px; align-items:center;">
+            <span
+              style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-0.5px;font-feature-settings:'tnum';"
+              data-count={val}
+            >
+              {val}
+            </span>
+            <span style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.02em;">
+              {label}
+            </span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </div>
@@ -94,16 +117,29 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
   /* ── Cycling stack name in hero body ─────────────────── */
   const cycleEl = document.querySelector<HTMLElement>("#stack-cycle");
   if (cycleEl) {
-    const stacks = ['Laravel', 'Vue', 'NestJS', 'Node.js', 'React', 'Next.js', 'Angular', 'Go', 'TypeScript', 'Python', 'PHP', 'Nuxt'];
+    const stacks = [
+      "Laravel",
+      "Vue",
+      "NestJS",
+      "Node.js",
+      "React",
+      "Next.js",
+      "Angular",
+      "Go",
+      "TypeScript",
+      "Python",
+      "PHP",
+      "Nuxt",
+    ];
     let idx = 0;
     setInterval(() => {
-      cycleEl.style.opacity = '0';
-      cycleEl.style.transform = 'translateY(6px)';
+      cycleEl.style.opacity = "0";
+      cycleEl.style.transform = "translateY(6px)";
       setTimeout(() => {
         idx = (idx + 1) % stacks.length;
         cycleEl.textContent = stacks[idx];
-        cycleEl.style.opacity = '1';
-        cycleEl.style.transform = 'translateY(0)';
+        cycleEl.style.opacity = "1";
+        cycleEl.style.transform = "translateY(0)";
       }, 280);
     }, 2500);
   }
@@ -115,9 +151,12 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
     const yTo = gsap.quickTo(magBtn, "y", { duration: 0.45, ease: "power3" });
     magBtn.addEventListener("mousemove", (e) => {
       const r = magBtn.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width  / 2)) * 0.35);
-      yTo((e.clientY - (r.top  + r.height / 2)) * 0.35);
+      xTo((e.clientX - (r.left + r.width / 2)) * 0.35);
+      yTo((e.clientY - (r.top + r.height / 2)) * 0.35);
     });
-    magBtn.addEventListener("mouseleave", () => { xTo(0); yTo(0); });
+    magBtn.addEventListener("mouseleave", () => {
+      xTo(0);
+      yTo(0);
+    });
   }
 </script>

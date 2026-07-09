@@ -9,7 +9,6 @@ import { SITE_NAME, truncate, plainText, ogUrl } from "@/lib/seo";
 interface Props {
   title: string;
   stack: string;
-  slug: string;
   tags: string[];
   language: string;
   file?: string;
@@ -26,7 +25,6 @@ interface Props {
 const {
   title,
   stack,
-  slug,
   tags,
   language,
   file,
@@ -49,7 +47,6 @@ const date = dateObj.toLocaleDateString("en-US", {
   month: "long",
   day: "numeric",
 });
-
 ---
 
 <BaseLayout
@@ -61,7 +58,6 @@ const date = dateObj.toLocaleDateString("en-US", {
   jsonLd={jsonLd}
 >
   <div id="tip-article" class="max-w-[680px] mx-auto px-6 pt-10 pb-20">
-
     <!-- Install banner -->
     <div class="mb-9">
       <InstallCTA variant="banner" />
@@ -82,7 +78,9 @@ const date = dateObj.toLocaleDateString("en-US", {
 
       <!-- Left-border accent + title -->
       <div class="pl-5 mb-7 border-l-[3px] border-primary">
-        <h1 class="text-[clamp(26px,4vw,36px)] font-semibold leading-[1.12] tracking-[-0.64px] text-ink max-w-[580px]">
+        <h1
+          class="text-[clamp(26px,4vw,36px)] font-semibold leading-[1.12] tracking-[-0.64px] text-ink max-w-[580px]"
+        >
           {title}
         </h1>
       </div>
@@ -94,24 +92,27 @@ const date = dateObj.toLocaleDateString("en-US", {
 
       <!-- Explanation -->
       <div class="max-w-[600px] mb-7">
-        {explanation
-          .split("\n\n")
-          .filter(Boolean)
-          .map((para) => (
-            <p class="text-[16px] font-semibold text-ink-secondary leading-[1.65] mb-4">
-              {para.trim()}
-            </p>
-          ))
+        {
+          explanation
+            .split("\n\n")
+            .filter(Boolean)
+            .map((para) => (
+              <p class="text-[16px] font-semibold text-ink-secondary leading-[1.65] mb-4">
+                {para.trim()}
+              </p>
+            ))
         }
       </div>
 
       <!-- Tags -->
       <div class="flex flex-wrap gap-2 mb-6">
-        {tags.map((tag) => (
-          <span class="font-mono text-[11px] font-semibold text-ink-mute bg-canvas-soft px-[9px] py-[3px] rounded-full border border-hairline tracking-[0.02em]">
-            {tag}
-          </span>
-        ))}
+        {
+          tags.map((tag) => (
+            <span class="font-mono text-[11px] font-semibold text-ink-mute bg-canvas-soft px-[9px] py-[3px] rounded-full border border-hairline tracking-[0.02em]">
+              {tag}
+            </span>
+          ))
+        }
       </div>
 
       <!-- Divider -->
@@ -123,30 +124,48 @@ const date = dateObj.toLocaleDateString("en-US", {
       </div>
 
       <!-- Source link -->
-      {source && (
-        <div class="flex items-center gap-[6px] font-mono text-[12px] text-ink-mute">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-          <span>source:</span>
-          <a href={source} target="_blank" rel="noopener noreferrer" class="text-primary no-underline">
-            {new URL(source).hostname}{new URL(source).pathname.replace(/\/$/, "").slice(0, 40)}
-          </a>
-        </div>
-      )}
+      {
+        source && (
+          <div class="flex items-center gap-[6px] font-mono text-[12px] text-ink-mute">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            <span>source:</span>
+            <a
+              href={source}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary no-underline"
+            >
+              {new URL(source).hostname}
+              {new URL(source).pathname.replace(/\/$/, "").slice(0, 40)}
+            </a>
+          </div>
+        )
+      }
     </article>
 
     <!-- Related tips -->
-    {Astro.slots.has("related") && (
-      <aside class="mt-14 pt-8 border-t border-hairline">
-        <h2 class="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-5">
-          More {stack} tips
-        </h2>
-        <slot name="related" />
-      </aside>
-    )}
+    {
+      Astro.slots.has("related") && (
+        <aside class="mt-14 pt-8 border-t border-hairline">
+          <h2 class="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink-mute mb-5">
+            More {stack} tips
+          </h2>
+          <slot name="related" />
+        </aside>
+      )
+    }
   </div>
 </BaseLayout>
 

@@ -1,5 +1,5 @@
 ---
-import "@fontsource-variable/ibm-plex-sans";
+import "@fontsource-variable/ibm-plex-sans/index.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
@@ -63,7 +63,16 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
 
     <!-- Feeds -->
     <link rel="alternate" type="application/rss+xml" title="Daily Dev Tip" href="/rss.xml" />
-    {rssFeed && <link rel="alternate" type="application/rss+xml" title={rssFeed.title} href={rssFeed.href} />}
+    {
+      rssFeed && (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={rssFeed.title}
+          href={rssFeed.href}
+        />
+      )
+    }
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

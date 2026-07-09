@@ -12,15 +12,19 @@ const { totalCount, stackCounts, allStackNames } = Astro.props;
 
 <!-- Search + filter row -->
 <div class="flex flex-wrap gap-[10px] items-center">
-
   <!-- Stack search input -->
   <div class="relative flex-1 min-w-[180px] max-w-[320px]">
     <svg
-      width="15" height="15" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="2" aria-hidden="true"
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
       class="absolute left-[11px] top-1/2 -translate-y-1/2 text-ink-mute pointer-events-none"
     >
-      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      <circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path>
     </svg>
     <input
       id="stack-search"
@@ -36,21 +40,28 @@ const { totalCount, stackCounts, allStackNames } = Astro.props;
 
   <!-- Stack filter pills -->
   <div id="filter-bar" class="flex flex-wrap gap-[6px] items-center">
-    <button data-filter="all" class="filter-pill active" style="--pill-color: var(--color-primary);" aria-pressed="true">
+    <button
+      data-filter="all"
+      class="filter-pill active"
+      style="--pill-color: var(--color-primary);"
+      aria-pressed="true"
+    >
       All
       <span class="font-mono text-[10px] opacity-65 ml-1">{totalCount}</span>
     </button>
-    {stackCounts.map(([stack, count]) => (
-      <button
-        data-filter={stack}
-        class="filter-pill"
-        style="--pill-color: var(--color-primary);"
-        aria-pressed="false"
-      >
-        {stackLabel(stack)}
-        <span class="font-mono text-[10px] opacity-65 ml-1">{count}</span>
-      </button>
-    ))}
+    {
+      stackCounts.map(([stack, count]) => (
+        <button
+          data-filter={stack}
+          class="filter-pill"
+          style="--pill-color: var(--color-primary);"
+          aria-pressed="false"
+        >
+          {stackLabel(stack)}
+          <span class="font-mono text-[10px] opacity-65 ml-1">{count}</span>
+        </button>
+      ))
+    }
   </div>
 </div>
 

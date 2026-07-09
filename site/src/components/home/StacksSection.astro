@@ -24,16 +24,14 @@ for (const t of stackTips) {
 const stackCounts = Object.entries(counts).sort(([a], [b]) => a.localeCompare(b));
 ---
 
-<section
-  id="stacks"
-  class="bg-canvas-soft border-t border-hairline py-14 md:py-[80px]"
->
+<section id="stacks" class="bg-canvas-soft border-t border-hairline py-14 md:py-[80px]">
   <div class="max-w-[1200px] mx-auto px-6">
-
     <!-- Header -->
     <div class="mb-7" data-reveal>
       <div class="flex items-baseline justify-between flex-wrap gap-3 mb-5">
-        <h2 class="font-serif text-[clamp(28px,3.5vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-[1.1]">
+        <h2
+          class="font-serif text-[clamp(28px,3.5vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-[1.1]"
+        >
           Browse by stack
         </h2>
         <span
@@ -58,55 +56,64 @@ const stackCounts = Object.entries(counts).sort(([a], [b]) => a.localeCompare(b)
     </div>
 
     <!-- Tips grid — all cards rendered, JS shows/hides -->
-    {stackTips.length > 0 ? (
-      <>
-      <div id="stacks-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {stackTips.map(({ entry, stack, slug, explanation }) => (
-          <div data-tip-stack={stack} class="tip-item">
-            <TipCard
-              id={entry.data.id ?? entry.id}
-              title={entry.data.title}
-              stack={stack}
-              slug={slug}
-              tags={entry.data.tags}
-              explanation={explanation}
-              authorName={entry.data.author.name}
-              authorGithub={entry.data.author.github}
-              publishedAt={entry.data.publishedAt}
-            />
+    {
+      stackTips.length > 0 ? (
+        <>
+          <div id="stacks-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {stackTips.map(({ entry, stack, slug, explanation }) => (
+              <div data-tip-stack={stack} class="tip-item">
+                <TipCard
+                  id={entry.data.id ?? entry.id}
+                  title={entry.data.title}
+                  stack={stack}
+                  slug={slug}
+                  tags={entry.data.tags}
+                  explanation={explanation}
+                  authorName={entry.data.author.name}
+                  authorGithub={entry.data.author.github}
+                  publishedAt={entry.data.publishedAt}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <nav
-        id="stacks-pagination"
-        class="items-center justify-center gap-5 mt-10"
-        style="display:none;"
-        aria-label="Tips pagination"
-      >
-        <button
-          id="stacks-prev"
-          class="text-[13px] font-semibold text-ink-mute hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none bg-transparent border-0 cursor-pointer"
-        >
-          &larr; Prev
-        </button>
-        <span
-          id="stacks-page-label"
-          class="font-mono text-[13px] font-semibold text-ink-mute"
-          style="font-feature-settings: 'tnum';"
-        ></span>
-        <button
-          id="stacks-next"
-          class="text-[13px] font-semibold text-ink-mute hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none bg-transparent border-0 cursor-pointer"
-        >
-          Next &rarr;
-        </button>
-      </nav>
-      </>
-    ) : (
-      <div style="text-align:center; padding: 72px 24px; border: 1px dashed var(--color-hairline); border-radius: var(--radius-lg);">
-        <p style="font-size: 15px; font-weight: 600; color: var(--color-ink-mute); margin-bottom: 12px;">No tips yet.</p>
-        <a href="/contribute" style="font-size: 15px; font-weight: 600; color: var(--color-primary); text-decoration: none;">Be first to contribute →</a>
-      </div>
-    )}
+          <nav
+            id="stacks-pagination"
+            class="items-center justify-center gap-5 mt-10"
+            style="display:none;"
+            aria-label="Tips pagination"
+          >
+            <button
+              id="stacks-prev"
+              class="text-[13px] font-semibold text-ink-mute hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none bg-transparent border-0 cursor-pointer"
+            >
+              &larr; Prev
+            </button>
+            <span
+              id="stacks-page-label"
+              class="font-mono text-[13px] font-semibold text-ink-mute"
+              style="font-feature-settings: 'tnum';"
+            />
+            <button
+              id="stacks-next"
+              class="text-[13px] font-semibold text-ink-mute hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none bg-transparent border-0 cursor-pointer"
+            >
+              Next &rarr;
+            </button>
+          </nav>
+        </>
+      ) : (
+        <div style="text-align:center; padding: 72px 24px; border: 1px dashed var(--color-hairline); border-radius: var(--radius-lg);">
+          <p style="font-size: 15px; font-weight: 600; color: var(--color-ink-mute); margin-bottom: 12px;">
+            No tips yet.
+          </p>
+          <a
+            href="/contribute"
+            style="font-size: 15px; font-weight: 600; color: var(--color-primary); text-decoration: none;"
+          >
+            Be first to contribute →
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>

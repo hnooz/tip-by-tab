@@ -5,9 +5,21 @@ export interface FilterGroup {
 }
 
 export const FILTER_GROUPS: Record<string, FilterGroup> = {
-  backend:  { label: "Backend",  stacks: ["laravel", "nest", "node", "go", "python", "php", "rust"], color: "#533afd" },
-  frontend: { label: "Frontend", stacks: ["vue", "react", "svelte", "angular", "next", "nuxt"],      color: "#10b981" },
-  devops:   { label: "DevOps",   stacks: ["bash", "docker", "kubernetes", "terraform"],      color: "#f59e0b" },
+  backend: {
+    label: "Backend",
+    stacks: ["laravel", "nest", "node", "go", "python", "php", "rust"],
+    color: "#533afd",
+  },
+  frontend: {
+    label: "Frontend",
+    stacks: ["vue", "react", "svelte", "angular", "next", "nuxt"],
+    color: "#10b981",
+  },
+  devops: {
+    label: "DevOps",
+    stacks: ["bash", "docker", "kubernetes", "terraform"],
+    color: "#f59e0b",
+  },
 };
 
 export const FILTER_ORDER = ["backend", "frontend", "devops"] as const;

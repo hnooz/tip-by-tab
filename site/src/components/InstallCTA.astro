@@ -5,48 +5,53 @@ interface Props {
 const { variant = "block" } = Astro.props;
 ---
 
-{variant === "banner" ? (
-  <div class="flex items-center gap-4 flex-wrap py-[10px] pl-4 pr-[14px] rounded-lg border border-primary/20 bg-primary/5">
-    <p class="flex-1 min-w-[180px] text-[13px] font-semibold text-ink-mute">
-      This tip lives in your new tab — for free.
-    </p>
-    <a
-      href="https://chrome.google.com/webstore/detail/daily-dev-tip"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-primary shrink-0 text-[13px] px-4 py-2"
-    >
-      Install for Chrome →
-    </a>
-  </div>
-) : (
-  <div class="relative rounded-xl border border-primary/15 overflow-hidden text-center px-10 py-12" style="background: linear-gradient(135deg, rgba(83,58,253,0.05) 0%, rgba(185,185,249,0.08) 100%);">
+{
+  variant === "banner" ? (
+    <div class="flex items-center gap-4 flex-wrap py-[10px] pl-4 pr-[14px] rounded-lg border border-primary/20 bg-primary/5">
+      <p class="flex-1 min-w-[180px] text-[13px] font-semibold text-ink-mute">
+        This tip lives in your new tab — for free.
+      </p>
+      <a
+        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary shrink-0 text-[13px] px-4 py-2"
+      >
+        Install for Chrome →
+      </a>
+    </div>
+  ) : (
     <div
-      class="absolute -top-[60px] left-1/2 -translate-x-1/2 w-[400px] h-[200px] pointer-events-none"
-      style="background: radial-gradient(ellipse at center, rgba(83,58,253,0.12) 0%, transparent 70%);"
-      aria-hidden="true"
-    ></div>
-    <div class="relative">
-      <p class="text-[30px] font-semibold tracking-[-0.64px] text-ink mb-3 leading-[1.1]">
-        One tip per tab.
-      </p>
-      <p class="text-[15px] font-semibold text-ink-mute mb-7 max-w-[360px] mx-auto leading-[1.55]">
-        Install the extension and get one atomic dev tip every time you open a new tab.
-        Your name on every reader's new tab when you contribute.
-      </p>
-      <div class="flex items-center justify-center gap-4 flex-wrap">
-        <a
-          href="https://chrome.google.com/webstore/detail/daily-dev-tip"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary text-[14px] px-6 py-[10px]"
-        >
-          Install for Chrome →
-        </a>
-        <a href="/contribute" class="btn-ghost text-[14px]">
-          Contribute a tip
-        </a>
+      class="relative rounded-xl border border-primary/15 overflow-hidden text-center px-10 py-12"
+      style="background: linear-gradient(135deg, rgba(83,58,253,0.05) 0%, rgba(185,185,249,0.08) 100%);"
+    >
+      <div
+        class="absolute -top-[60px] left-1/2 -translate-x-1/2 w-[400px] h-[200px] pointer-events-none"
+        style="background: radial-gradient(ellipse at center, rgba(83,58,253,0.12) 0%, transparent 70%);"
+        aria-hidden="true"
+      />
+      <div class="relative">
+        <p class="text-[30px] font-semibold tracking-[-0.64px] text-ink mb-3 leading-[1.1]">
+          One tip per tab.
+        </p>
+        <p class="text-[15px] font-semibold text-ink-mute mb-7 max-w-[360px] mx-auto leading-[1.55]">
+          Install the extension and get one atomic dev tip every time you open a new tab. Your name
+          on every reader's new tab when you contribute.
+        </p>
+        <div class="flex items-center justify-center gap-4 flex-wrap">
+          <a
+            href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary text-[14px] px-6 py-[10px]"
+          >
+            Install for Chrome →
+          </a>
+          <a href="/contribute" class="btn-ghost text-[14px]">
+            Contribute a tip
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-)}
+  )
+}

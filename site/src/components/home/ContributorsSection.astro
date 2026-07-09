@@ -10,7 +10,9 @@ const { founders } = Astro.props;
   <div class="max-w-[1200px] mx-auto px-6">
     <div class="max-w-[520px] mb-10 md:mb-12" data-reveal>
       <span class="eyebrow-pill mb-4">Community</span>
-      <h2 class="font-serif text-[clamp(28px,3.5vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-[1.1] mt-4 mb-3">
+      <h2
+        class="font-serif text-[clamp(28px,3.5vw,40px)] font-semibold tracking-[-0.03em] text-ink leading-[1.1] mt-4 mb-3"
+      >
         The developers who built the foundation.
       </h2>
       <p class="text-[15px] font-semibold text-ink-mute leading-[1.6]">
@@ -19,21 +21,33 @@ const { founders } = Astro.props;
     </div>
 
     <div class="flex flex-wrap gap-3" data-reveal-group>
-      {founders.map(([github, { name, count }]) => {
-        const initials = name.split(" ").map((w: string) => w[0]).join("").toUpperCase().slice(0, 2);
-        return (
-          <a
-            href={`/contributors/${github}`}
-            class="contrib-card inline-flex items-center gap-[10px] px-[14px] py-[10px] pl-[10px] rounded-lg border border-hairline bg-canvas shadow-1 no-underline transition-[box-shadow,transform] duration-200"
-          >
-            <div class="contrib-avatar w-9 h-9 text-[12px]">{initials}</div>
-            <div>
-              <div class="text-[13px] font-semibold text-ink leading-[1.2]">@{github}</div>
-              <div class="text-[11px] font-semibold text-ink-mute" style="font-feature-settings: 'tnum';">{count} tip{count !== 1 ? "s" : ""}</div>
-            </div>
-          </a>
-        );
-      })}
+      {
+        founders.map(([github, { name, count }]) => {
+          const initials = name
+            .split(" ")
+            .map((w: string) => w[0])
+            .join("")
+            .toUpperCase()
+            .slice(0, 2);
+          return (
+            <a
+              href={`/contributors/${github}`}
+              class="contrib-card inline-flex items-center gap-[10px] px-[14px] py-[10px] pl-[10px] rounded-lg border border-hairline bg-canvas shadow-1 no-underline transition-[box-shadow,transform] duration-200"
+            >
+              <div class="contrib-avatar w-9 h-9 text-[12px]">{initials}</div>
+              <div>
+                <div class="text-[13px] font-semibold text-ink leading-[1.2]">@{github}</div>
+                <div
+                  class="text-[11px] font-semibold text-ink-mute"
+                  style="font-feature-settings: 'tnum';"
+                >
+                  {count} tip{count !== 1 ? "s" : ""}
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
   </div>
 </section>
@@ -43,7 +57,12 @@ const { founders } = Astro.props;
 
   document.querySelectorAll<HTMLElement>(".contrib-card").forEach((card) => {
     card.addEventListener("mouseenter", () => {
-      gsap.to(card, { y: -2, boxShadow: "0 8px 20px rgba(0,55,112,0.1)", duration: 0.2, ease: "power2.out" });
+      gsap.to(card, {
+        y: -2,
+        boxShadow: "0 8px 20px rgba(0,55,112,0.1)",
+        duration: 0.2,
+        ease: "power2.out",
+      });
     });
     card.addEventListener("mouseleave", () => {
       gsap.to(card, { y: 0, boxShadow: "var(--shadow-1)", duration: 0.3, ease: "power2.out" });

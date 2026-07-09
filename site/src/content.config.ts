@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
 const tips = defineCollection({
@@ -17,7 +18,7 @@ const tips = defineCollection({
       github: z.string().regex(/^[a-zA-Z0-9-]+$/),
       name: z.string().min(2).max(60),
     }),
-    source: z.string().url().optional(),
+    source: z.url().optional(),
     publishedAt: z.coerce.date(),
   }),
 });

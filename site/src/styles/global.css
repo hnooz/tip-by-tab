@@ -133,23 +133,46 @@
 /* ─── Keyframes ─────────────────────────────────────────── */
 
 @keyframes ddt-fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes ddt-slide-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes ddt-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 @keyframes ddt-enter {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Scroll-reveal default — GSAP fromTo overrides these explicitly */
@@ -160,8 +183,12 @@
 
 /* ─── Marquee ─────────────────────────────────────────── */
 @keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-track {
@@ -210,7 +237,7 @@
 .mesh-blob-dark-lavender {
   width: 620px;
   height: 560px;
-  background: rgba(185, 185, 249, 0.30);
+  background: rgba(185, 185, 249, 0.3);
   top: -220px;
   left: 480px;
 }
@@ -230,7 +257,6 @@
   top: -80px;
   left: 1060px;
 }
-
 
 /* ─── Base ───────────────────────────────────────────────── */
 
@@ -328,7 +354,9 @@
   padding: 10px 20px;
   border-radius: var(--radius-pill);
   text-decoration: none;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
   white-space: nowrap;
 }
 
@@ -353,7 +381,9 @@
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-primary);
   text-decoration: none;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
   white-space: nowrap;
 }
 
@@ -373,7 +403,9 @@
   padding: 10px 16px;
   border-radius: var(--radius-pill);
   text-decoration: none;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
   white-space: nowrap;
 }
 
@@ -403,7 +435,9 @@
   border-radius: var(--radius-lg);
   padding: 28px 28px 24px;
   box-shadow: var(--shadow-1);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .card-feature:hover {
@@ -419,7 +453,9 @@
   border-radius: var(--radius-lg);
   padding: 24px;
   box-shadow: var(--shadow-1);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   text-decoration: none;
   display: block;
 }
@@ -437,7 +473,9 @@
   border-radius: var(--radius-lg);
   padding: 20px 20px 18px;
   box-shadow: var(--shadow-1);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   text-decoration: none;
   display: block;
 }
@@ -537,7 +575,9 @@
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(83, 58, 253, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .contrib-card:hover .contrib-avatar {
@@ -558,7 +598,10 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
   box-shadow: var(--shadow-1);
   line-height: 1;
 }
@@ -576,7 +619,9 @@
 }
 
 .tip-item {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .tip-item[data-hidden] {

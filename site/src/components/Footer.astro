@@ -1,5 +1,5 @@
 ---
-const footerLinks = {
+const footerLinks: Record<string, { href: string; label: string; external?: boolean }[]> = {
   Browse: [
     { href: "/#stacks", label: "Stacks" },
     { href: "/contributors", label: "Contributors" },
@@ -14,8 +14,9 @@ const footerLinks = {
 ---
 
 <footer class="bg-canvas border-t border-hairline">
-  <div class="max-w-[1200px] mx-auto px-6 pt-10 pb-8 sm:pt-14 sm:pb-10 grid gap-8 grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
-
+  <div
+    class="max-w-[1200px] mx-auto px-6 pt-10 pb-8 sm:pt-14 sm:pb-10 grid gap-8 grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]"
+  >
     <!-- Brand -->
     <div class="col-span-2 lg:col-span-1">
       <p class="text-[14px] font-semibold text-ink mb-2 tracking-[-0.2px]">Daily Dev Tip</p>
@@ -25,32 +26,32 @@ const footerLinks = {
     </div>
 
     <!-- Link columns -->
-    {Object.entries(footerLinks).map(([heading, links]) => (
-      <div>
-        <p class="text-[10px] font-semibold uppercase tracking-[0.1px] text-ink-mute mb-3">
-          {heading}
-        </p>
-        <ul class="list-none p-0 m-0 flex flex-col gap-2">
-          {links.map(({ href, label, external }) => (
-            <li>
-              <a
-                href={href}
-                class="text-[13px] font-semibold text-ink-mute no-underline transition-colors hover:text-ink"
-                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+    {
+      Object.entries(footerLinks).map(([heading, links]) => (
+        <div>
+          <p class="text-[10px] font-semibold uppercase tracking-[0.1px] text-ink-mute mb-3">
+            {heading}
+          </p>
+          <ul class="list-none p-0 m-0 flex flex-col gap-2">
+            {links.map(({ href, label, external }) => (
+              <li>
+                <a
+                  href={href}
+                  class="text-[13px] font-semibold text-ink-mute no-underline transition-colors hover:text-ink"
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
 
     <!-- Install -->
     <div>
-      <p class="text-[10px] font-semibold uppercase tracking-[0.1px] text-ink-mute mb-3">
-        Install
-      </p>
+      <p class="text-[10px] font-semibold uppercase tracking-[0.1px] text-ink-mute mb-3">Install</p>
       <a
         href="https://chrome.google.com/webstore/detail/daily-dev-tip"
         target="_blank"
@@ -63,7 +64,9 @@ const footerLinks = {
   </div>
 
   <!-- Bottom bar -->
-  <div class="border-t border-hairline px-6 py-4 max-w-[1200px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0">
+  <div
+    class="border-t border-hairline px-6 py-4 max-w-[1200px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0"
+  >
     <span class="text-[12px] font-semibold text-ink-mute">MIT License · Open source</span>
     <span class="text-[12px] font-semibold text-ink-mute">
       Made with <span aria-hidden="true">&hearts;</span> by{" "}
