@@ -13,6 +13,9 @@ permissions:
 
 jobs:
   build:
+    if: >-
+      !contains(github.event.head_commit.message, 'from hnooz/dev') &&
+      !contains(github.event.head_commit.message, 'branch ''dev''')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
