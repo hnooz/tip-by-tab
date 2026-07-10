@@ -29,7 +29,7 @@ Two surfaces, one project.
 
 ### Surface B — The contributor (GitHub repo)
 - One markdown file per tip
-- Submit via PR (power users) or Issue form (casual contributors)
+- Submit via PR directly (no issue step)
 - CI validates schema, lints code, checks attribution, detects duplicates
 - Maintainer reviews → merges → CI assigns ID, publishes JSON for extension
 - Contributor's name lives in: the file, the commit log, the extension UI, their GitHub contribution graph

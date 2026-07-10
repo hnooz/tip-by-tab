@@ -43,7 +43,7 @@ bun run assign-id     # CI-time: fill ids for new tips
 bun run build         # generate dist/
 ```
 
-Add a tip: create `tips/<stack>/<kebab-title>.md` — frontmatter, then a code block (≤ 15 lines) first, then prose (≤ 600 chars). `id` and `codeHash` are assigned by CI, never by you. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Add a tip: create `tips/<stack>/<kebab-title>.md` — frontmatter, then a code block (≤ 25 lines) first, then prose (≤ 600 chars). `id` and `codeHash` are assigned by CI, never by you. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Public site (`site/`)
 

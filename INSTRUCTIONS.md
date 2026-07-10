@@ -65,8 +65,6 @@ daily-dev-tips/
 │       ├── laravel.json
 │       └── ...
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   └── new-tip.yml            # Low-friction submission form
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   ├── workflows/
 │   │   ├── validate.yml           # Runs on every PR
@@ -121,7 +119,7 @@ concern to live anyway.
 - **`id` is permanent once assigned.** Never reused. It's the cache key for clients.
 - **`author.github` is required.** This is the recognition.
 - **Code block must come first** in the body, explanation second.
-- **Max 15 lines of code, max 600 chars of explanation.** Enforced by CI.
+- **Max 25 lines of code, max 600 chars of explanation.** Enforced by CI.
 
 ### Schema (`schemas/tip.schema.json`)
 

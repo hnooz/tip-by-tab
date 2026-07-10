@@ -226,6 +226,10 @@ Founding curators (Phase 1 friends) start at "Stack curator" automatically.
 
 > Append-only. Date every decision. Future-you needs the reasoning.
 
+### 2026-07-10 (submission flow simplification)
+- **Issue-form submission path removed; PRs only.** Issue → maintainer-converts-to-PR flow was double work for maintainers. Deleted `.github/ISSUE_TEMPLATE/new-tip.yml`; CONTRIBUTING.md, contribute page, IDEA.md, INSTRUCTIONS.md updated to single PR path.
+- **Code cap raised 15 → 25 lines** (`CAPS.codeLines` in `validate.mjs`; docs + PR template + contribute page updated). PR-template checklist trimmed: "original work / not AI-generated" and "checked for duplicates" items removed.
+
 ### 2026-07-03 (open stacks + site polish session)
 - **`stack` and `language` are open sets, not enums.** Schema + Astro content config validate pattern `^[a-z][a-z0-9-]*$`; `STACKS` derived from `tips/` directories in `scripts/shared.mjs`. Adding a stack = adding a directory. Tag pattern relaxed to allow `php8.4`, `n+1`.
 - **9 stacks live** (was 3): go, laravel, nest, next, nuxt, php, react, rust, vue — 45 tips, all ids assigned.

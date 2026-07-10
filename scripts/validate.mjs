@@ -23,7 +23,7 @@ export function codeHash(code) {
   return crypto.createHash("sha256").update(normalizeCode(code)).digest("hex").slice(0, 16);
 }
 
-const CAPS = { codeLines: 15, explanationChars: 600 };
+const CAPS = { codeLines: 25, explanationChars: 600 };
 
 function trigrams(s) {
   const t = s.toLowerCase().replace(/\s+/g, " ").trim();

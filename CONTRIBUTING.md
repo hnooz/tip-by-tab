@@ -6,12 +6,10 @@ This guide tells you exactly how to submit a tip that gets merged.
 
 ---
 
-## Two ways to contribute
+## How to contribute
 
-### 1. Issue form (easiest)
-Open a [**New Tip issue**](../../issues/new?template=new-tip.yml), fill in the fields, submit. A maintainer will convert it to a PR. Best for casual contributors or your first tip.
+Submit tips as pull requests — no issue needed first:
 
-### 2. Pull request (preferred for regulars)
 1. Fork the repo
 2. Create `tips/<stack>/<kebab-title>.md` (don't worry about numbering — CI assigns the `id` on merge)
 3. Follow the [tip format](#tip-format) below
@@ -44,7 +42,7 @@ A great tip teaches **one mechanism, in 30 seconds, that the reader didn't know 
 ### What gets rejected
 
 - ❌ "Use `array_map` instead of `foreach`" — basic, in every intro
-- ❌ Full tutorials, multi-step setups, anything > 15 lines of code
+- ❌ Full tutorials, multi-step setups, anything > 25 lines of code
 - ❌ Code without explanation, or vague "this is cool" explanations
 - ❌ Opinions framed as tips ("always use spaces over tabs")
 - ❌ Tips for deprecated APIs or unmaintained libraries
@@ -124,7 +122,7 @@ batch cancel on first error.
 
 - **Code block first**, explanation second. No exceptions.
 - **Code block** must specify the language: ` ```php`, ` ```ts`, etc.
-- **Max 15 lines** of code. If it needs more, it's not a tip.
+- **Max 25 lines** of code. If it needs more, it's not a tip.
 - **Max 600 characters** of explanation (about 4-5 sentences). Use the room to explain the *why* and one tradeoff.
 - **Use backticks** for inline code: `whenLoaded`, not "whenLoaded".
 - **No headings** in the body. Frontmatter + code + prose is the whole format.

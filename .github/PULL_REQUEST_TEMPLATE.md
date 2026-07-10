@@ -6,10 +6,8 @@
 - [ ] Frontmatter includes `title`, `stack`, `tags`, `language`, `author.github`, `author.name`, `publishedAt`
 - [ ] No `id` field — CI assigns it at merge
 - [ ] Code block comes **first** in the body, prose explanation second
-- [ ] Code is ≤ 15 lines
+- [ ] Code is ≤ 25 lines
 - [ ] Explanation is ≤ 600 chars
-- [ ] Tip is my own original work — not AI-generated
-- [ ] I've checked existing tips — no duplicate
 
 ## What does this tip teach?
 
