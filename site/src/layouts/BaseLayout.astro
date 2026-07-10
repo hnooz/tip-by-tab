@@ -81,6 +81,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     {
       jsonLd && (
         <script
+          is:inline
           type="application/ld+json"
           set:html={JSON.stringify(jsonLd).replace(/<\/script>/gi, "<\\/script>")}
         />

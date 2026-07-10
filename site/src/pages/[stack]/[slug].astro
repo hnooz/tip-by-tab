@@ -92,13 +92,13 @@ const related = allTips
   stack={stack}
   tags={entry.data.tags}
   language={language}
-  file={entry.data.file}
+  file={entry.data.file ?? undefined}
   code={code}
   explanation={explanation}
   authorGithub={entry.data.author.github}
   authorName={entry.data.author.name}
   publishedAt={entry.data.publishedAt}
-  source={entry.data.source}
+  source={entry.data.source ?? undefined}
   canonical={canonical}
   jsonLd={jsonLd}
 >
