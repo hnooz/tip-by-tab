@@ -70,11 +70,22 @@ async function main() {
   const warnings = [];
   const seenHashes = new Map(index.map((e) => [e.codeHash, e.id ?? e.title]));
 
+  const rootEntries = await fs.readdir(path.join(ROOT, "tips"), { withFileTypes: true });
+  for (const entry of rootEntries) {
+    if (!entry.isDirectory() && !entry.name.startsWith(".")) {
+      errors.push(`tips/${entry.name}: tips must live in tips/<stack>/<kebab-title>.md`);
+    }
+  }
+
   for (const stack of STACKS) {
     const dir = path.join(ROOT, "tips", stack);
     let files = [];
     try {
-      files = (await fs.readdir(dir)).filter((f) => f.endsWith(".md")).sort();
+      const entries = (await fs.readdir(dir)).sort();
+      for (const f of entries.filter((f) => !f.endsWith(".md"))) {
+        errors.push(`tips/${stack}/${f}: tip files must have a .md extension`);
+      }
+      files = entries.filter((f) => f.endsWith(".md"));
     } catch {
       continue;
     }

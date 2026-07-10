@@ -8,17 +8,17 @@ const tips = defineCollection({
     id: z
       .string()
       .regex(/^[a-z]+-\d{4}$/)
-      .optional(),
+      .nullish(),
     title: z.string().min(10).max(90),
     stack: z.string().regex(/^[a-z][a-z0-9-]*$/),
     tags: z.array(z.string()).min(1).max(5),
     language: z.string().regex(/^[a-z][a-z0-9-]*$/),
-    file: z.string().optional(),
+    file: z.string().nullish(),
     author: z.object({
       github: z.string().regex(/^[a-zA-Z0-9-]+$/),
       name: z.string().min(2).max(60),
     }),
-    source: z.url().optional(),
+    source: z.url().nullish(),
     publishedAt: z.coerce.date(),
   }),
 });

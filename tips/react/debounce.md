@@ -7,11 +7,9 @@ tags:
   - performance
   - js
 language: jsx
-file: null
 author:
   github: DevDhaif
   name: Dhaifallah Ahmed
-source: null
 publishedAt: 2026-07-11
 id: react-0006
 ---
