@@ -7,7 +7,9 @@ import StacksSection from "@/components/home/StacksSection.astro";
 import ContributorsSection from "@/components/home/ContributorsSection.astro";
 import HomeCTA from "@/components/home/HomeCTA.astro";
 import { parseTipBody } from "@/lib/parse-tip";
+import { stackLabel } from "@/lib/stacks";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
+import type { HeroTip } from "@/lib/hero-tip-card";
 
 const allTips = await getCollection("tips");
 const assigned = allTips.filter((e) => e.data.id);
@@ -36,6 +38,26 @@ const totalStacks = [...new Set(assigned.map((e) => e.id.split("/")[0]))].length
 
 // derive unique stack names for search placeholder
 const allStackNames = [...new Set(assigned.map((e) => e.id.split("/")[0]))].sort();
+const stackLabels = allStackNames.map(stackLabel);
+
+// Hero demo card: newest tip per stack, up to 6, real content + real authors
+const heroTips: HeroTip[] = [];
+const heroSeen = new Set<string>();
+for (const e of sorted) {
+  const stack = e.id.split("/")[0];
+  if (heroSeen.has(stack)) continue;
+  heroSeen.add(stack);
+  const { code, language } = parseTipBody(e.body ?? "", e.data.language);
+  if (!code) continue;
+  heroTips.push({
+    label: stackLabel(stack),
+    title: e.data.title,
+    code,
+    language,
+    github: e.data.author.github,
+  });
+  if (heroTips.length === 6) break;
+}
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -53,7 +75,13 @@ const jsonLd = {
   canonical={SITE_URL}
   jsonLd={jsonLd}
 >
-  <HeroSection totalTips={totalTips} totalContribs={totalContribs} totalStacks={totalStacks} />
+  <HeroSection
+    totalTips={totalTips}
+    totalContribs={totalContribs}
+    totalStacks={totalStacks}
+    heroTips={heroTips}
+    stackNames={stackLabels}
+  />
   <HowItWorks />
   <StacksSection stackTips={stackTips} allStackNames={allStackNames} />
   {founders.length > 0 && <ContributorsSection founders={founders} />}
@@ -66,34 +94,36 @@ const jsonLd = {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Scroll reveals — fromTo for bulletproof opacity ─────── */
-  document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 32 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 87%", once: true },
-      }
-    );
-  });
+  /* ── Scroll reveals — content visible by default, GSAP adds entrance only ── */
+  gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 92%", once: true },
+        }
+      );
+    });
 
-  document.querySelectorAll<HTMLElement>("[data-reveal-group]").forEach((group) => {
-    gsap.fromTo(
-      Array.from(group.children) as HTMLElement[],
-      { opacity: 0, y: 28 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.65,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: group, start: "top 87%", once: true },
-      }
-    );
+    document.querySelectorAll<HTMLElement>("[data-reveal-group]").forEach((group) => {
+      gsap.fromTo(
+        Array.from(group.children) as HTMLElement[],
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: group, start: "top 92%", once: true },
+        }
+      );
+    });
   });
 
   /* ── Card hover depth via GSAP (smoother than CSS) ──────── */

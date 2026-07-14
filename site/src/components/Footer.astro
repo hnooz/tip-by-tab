@@ -1,4 +1,6 @@
 ---
+import { WEBSTORE_URL } from "@/lib/seo";
+
 const footerLinks: Record<string, { href: string; label: string; external?: boolean }[]> = {
   Browse: [
     { href: "/#stacks", label: "Stacks" },
@@ -6,8 +8,8 @@ const footerLinks: Record<string, { href: string; label: string; external?: bool
   ],
   Contribute: [
     { href: "/contribute", label: "Submit a tip" },
-    { href: "https://github.com/hnooz/daily-dev-tips", label: "GitHub", external: true },
-    { href: "/rss.xml", label: "RSS feed" },
+    { href: "https://github.com/hnooz/tip-by-tab", label: "GitHub", external: true },
+    { href: "/rss.xml", label: "RSS feed", external: true },
   ],
   Legal: [{ href: "/privacy", label: "Privacy" }],
 };
@@ -19,7 +21,7 @@ const footerLinks: Record<string, { href: string; label: string; external?: bool
   >
     <!-- Brand -->
     <div class="col-span-2 lg:col-span-1">
-      <p class="text-[14px] font-semibold text-ink mb-2 tracking-[-0.2px]">Daily Dev Tip</p>
+      <p class="text-[14px] font-semibold text-ink mb-2 tracking-[-0.2px]">Tip by Tab</p>
       <p class="text-[13px] font-semibold text-ink-mute leading-[1.55] max-w-[240px]">
         One atomic developer tip per new tab. Community-curated, contributor-credited.
       </p>
@@ -53,7 +55,7 @@ const footerLinks: Record<string, { href: string; label: string; external?: bool
     <div>
       <p class="text-[10px] font-semibold uppercase tracking-[0.1px] text-ink-mute mb-3">Install</p>
       <a
-        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        href={WEBSTORE_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="btn-primary inline-flex text-[13px] px-4 py-2"
@@ -71,7 +73,7 @@ const footerLinks: Record<string, { href: string; label: string; external?: bool
     <span class="text-[12px] font-semibold text-ink-mute">
       Made with <span aria-hidden="true">&hearts;</span> by{" "}
       <a
-        href="https://github.com/hnooz"
+        href="https://moidris.com"
         target="_blank"
         rel="noopener noreferrer"
         class="text-ink-mute no-underline transition-colors hover:text-ink">Mohamed Idris</a

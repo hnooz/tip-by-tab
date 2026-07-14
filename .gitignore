@@ -2,6 +2,8 @@ node_modules/
 *.log
 .DS_Store
 .env
+.impeccable
+.claude
 site/dist/
 site/.astro/
 IDEA.md
@@ -11,3 +13,4 @@ DESIGN.md
 CLAUDE.md
 DEPLOY.md
 TODO.md
+PRODUCT.md

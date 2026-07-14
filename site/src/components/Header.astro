@@ -1,4 +1,7 @@
 ---
+import { WEBSTORE_URL } from "@/lib/seo";
+import HeaderMobileMenu from "./HeaderMobileMenu.astro";
+
 const { pathname } = Astro.url;
 const isHome = pathname === "/";
 const contributorsActive = pathname.startsWith("/contributors");
@@ -9,9 +12,9 @@ const contributorsActive = pathname.startsWith("/contributors");
     <a
       href="/"
       class="shrink-0 font-sans text-[17px] font-semibold tracking-[-0.3px] no-underline text-ink"
-      aria-label="Daily Dev Tip — home"
+      aria-label="Tip by Tab — home"
     >
-      Daily Dev Tip
+      Tip by Tab
     </a>
 
     <!-- Desktop nav -->
@@ -37,7 +40,7 @@ const contributorsActive = pathname.startsWith("/contributors");
     <!-- Desktop actions -->
     <div class="hidden sm:flex items-center gap-3 ml-auto">
       <a
-        href="https://github.com/hnooz/daily-dev-tips"
+        href="https://github.com/hnooz/tip-by-tab"
         target="_blank"
         rel="noopener noreferrer"
         class="btn-ghost text-[13px]"
@@ -52,7 +55,7 @@ const contributorsActive = pathname.startsWith("/contributors");
       </a>
       <a href="/contribute" class="btn-secondary text-[13px]">Contribute</a>
       <a
-        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        href={WEBSTORE_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="btn-primary text-[13px]"
@@ -64,7 +67,7 @@ const contributorsActive = pathname.startsWith("/contributors");
     <!-- Mobile: install + hamburger -->
     <div class="flex sm:hidden items-center gap-2 ml-auto">
       <a
-        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        href={WEBSTORE_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="btn-primary text-[12px]"
@@ -112,90 +115,4 @@ const contributorsActive = pathname.startsWith("/contributors");
   </div>
 </header>
 
-<!-- Mobile menu panel (below header) -->
-<div
-  id="mobile-menu"
-  class="hidden fixed top-14 left-0 right-0 z-39 bg-canvas border-b border-hairline shadow-2 sm:hidden"
-  aria-hidden="true"
->
-  <nav class="max-w-[1200px] mx-auto px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-    <a
-      href={isHome ? "#stacks" : "/#stacks"}
-      class="flex items-center px-3 py-3 rounded-md text-[15px] font-semibold text-ink-mute hover:text-ink hover:bg-canvas-soft transition-colors no-underline"
-    >
-      Stacks
-    </a>
-    <a
-      href="/contributors"
-      class:list={[
-        "flex items-center px-3 py-3 rounded-md text-[15px] font-semibold transition-colors no-underline",
-        contributorsActive
-          ? "text-primary bg-primary/7"
-          : "text-ink-mute hover:text-ink hover:bg-canvas-soft",
-      ]}
-    >
-      Contributors
-    </a>
-    <a
-      href="/contribute"
-      class="flex items-center px-3 py-3 rounded-md text-[15px] font-semibold text-ink-mute hover:text-ink hover:bg-canvas-soft transition-colors no-underline"
-    >
-      Contribute a tip
-    </a>
-    <a
-      href="https://github.com/hnooz/daily-dev-tips"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="flex items-center px-3 py-3 rounded-md text-[15px] font-semibold text-ink-mute hover:text-ink hover:bg-canvas-soft transition-colors no-underline"
-    >
-      GitHub ↗
-    </a>
-  </nav>
-</div>
-
-<script>
-  const btn = document.getElementById("mobile-menu-btn");
-  const menu = document.getElementById("mobile-menu");
-  const iconOpen = document.getElementById("icon-open");
-  const iconClose = document.getElementById("icon-close");
-
-  function openMenu() {
-    menu?.classList.remove("hidden");
-    menu?.setAttribute("aria-hidden", "false");
-    btn?.setAttribute("aria-expanded", "true");
-    iconOpen?.classList.add("hidden");
-    iconClose?.classList.remove("hidden");
-  }
-
-  function closeMenu() {
-    menu?.classList.add("hidden");
-    menu?.setAttribute("aria-hidden", "true");
-    btn?.setAttribute("aria-expanded", "false");
-    iconOpen?.classList.remove("hidden");
-    iconClose?.classList.add("hidden");
-  }
-
-  btn?.addEventListener("click", () => {
-    if (menu?.classList.contains("hidden")) openMenu();
-    else closeMenu();
-  });
-
-  // Close on nav link click
-  menu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
-
-  // Close on outside click
-  document.addEventListener("click", (e) => {
-    if (
-      !menu?.classList.contains("hidden") &&
-      !menu?.contains(e.target as Node) &&
-      !btn?.contains(e.target as Node)
-    ) {
-      closeMenu();
-    }
-  });
-
-  // Close on resize past sm breakpoint
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 640) closeMenu();
-  });
-</script>
+<HeaderMobileMenu isHome={isHome} contributorsActive={contributorsActive} />

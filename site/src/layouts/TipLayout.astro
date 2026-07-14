@@ -1,9 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import StackBadge from "@/components/StackBadge.astro";
-import AuthorCard from "@/components/AuthorCard.astro";
 import InstallCTA from "@/components/InstallCTA.astro";
-import CodeBlock from "@/components/CodeBlock.astro";
+import TipArticle from "@/components/TipArticle.astro";
 import { SITE_NAME, truncate, plainText, ogUrl } from "@/lib/seo";
 
 interface Props {
@@ -22,31 +20,10 @@ interface Props {
   jsonLd: object;
 }
 
-const {
-  title,
-  stack,
-  tags,
-  language,
-  file,
-  code,
-  explanation,
-  authorGithub,
-  authorName,
-  publishedAt,
-  source,
-  canonical,
-  jsonLd,
-} = Astro.props;
+const { title, stack, explanation, canonical, jsonLd, ...rest } = Astro.props;
 
 const description = truncate(plainText(explanation), 155);
 const ogImage = ogUrl(stack);
-const dateObj = new Date(publishedAt);
-const dateIso = dateObj.toISOString().slice(0, 10);
-const date = dateObj.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
 ---
 
 <BaseLayout
@@ -63,97 +40,7 @@ const date = dateObj.toLocaleDateString("en-US", {
       <InstallCTA variant="banner" />
     </div>
 
-    <article>
-      <!-- Stack badge + date -->
-      <div class="flex items-center gap-[10px] mb-5">
-        <StackBadge stack={stack} />
-        <time
-          datetime={dateIso}
-          class="font-mono text-[12px] text-ink-mute"
-          style="font-feature-settings: 'tnum';"
-        >
-          {date}
-        </time>
-      </div>
-
-      <!-- Left-border accent + title -->
-      <div class="pl-5 mb-7 border-l-[3px] border-primary">
-        <h1
-          class="text-[clamp(26px,4vw,36px)] font-semibold leading-[1.12] tracking-[-0.64px] text-ink max-w-[580px]"
-        >
-          {title}
-        </h1>
-      </div>
-
-      <!-- Code block -->
-      <div class="mb-6">
-        <CodeBlock code={code} language={language} file={file} />
-      </div>
-
-      <!-- Explanation -->
-      <div class="max-w-[600px] mb-7">
-        {
-          explanation
-            .split("\n\n")
-            .filter(Boolean)
-            .map((para) => (
-              <p class="text-[16px] font-semibold text-ink-secondary leading-[1.65] mb-4">
-                {para.trim()}
-              </p>
-            ))
-        }
-      </div>
-
-      <!-- Tags -->
-      <div class="flex flex-wrap gap-2 mb-6">
-        {
-          tags.map((tag) => (
-            <span class="font-mono text-[11px] font-semibold text-ink-mute bg-canvas-soft px-[9px] py-[3px] rounded-full border border-hairline tracking-[0.02em]">
-              {tag}
-            </span>
-          ))
-        }
-      </div>
-
-      <!-- Divider -->
-      <div class="h-px bg-hairline mb-6"></div>
-
-      <!-- Author card -->
-      <div class="mb-5">
-        <AuthorCard github={authorGithub} name={authorName} />
-      </div>
-
-      <!-- Source link -->
-      {
-        source && (
-          <div class="flex items-center gap-[6px] font-mono text-[12px] text-ink-mute">
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
-            <span>source:</span>
-            <a
-              href={source}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-primary no-underline"
-            >
-              {new URL(source).hostname}
-              {new URL(source).pathname.replace(/\/$/, "").slice(0, 40)}
-            </a>
-          </div>
-        )
-      }
-    </article>
+    <TipArticle title={title} stack={stack} explanation={explanation} {...rest} />
 
     <!-- Related tips -->
     {

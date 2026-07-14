@@ -1,5 +1,10 @@
-export const SITE_URL = "https://dailydevtips.mohammededris23.workers.dev/";
-export const SITE_NAME = "Daily Dev Tip";
+export const SITE_URL = "https://tipbytab.moidris.com/";
+export const GITHUB_REPO_URL = "https://github.com/hnooz/tip-by-tab";
+// Pre-launch: points at the repo until the Web Store listing is live.
+// Launch day: swap to the real listing URL — every install CTA imports this.
+export const WEBSTORE_URL =
+  "https://chromewebstore.google.com/detail/calklaaocjacgelaggbofconddlkdegf?utm_source=item-share-cb";
+export const SITE_NAME = "Tip by Tab";
 export const SITE_DESCRIPTION =
   "One atomic developer tip per new tab. Community-curated, contributor-credited.";
 

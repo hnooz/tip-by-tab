@@ -1,165 +1,90 @@
 ---
-// Hero tip preview card — xl only, cycles through sample tips.
+// Hero tip preview card — xl only, cycles through real tips from the collection.
+import { accentStyle, buildHeroCards, type HeroTip } from "@/lib/hero-tip-card";
+
+interface Props {
+  tips: HeroTip[];
+}
+
+const { tips } = Astro.props;
+const cards = await buildHeroCards(tips);
+const firstCard = cards[0];
 ---
 
-<div
-  id="hero-tip-card"
-  class="hidden xl:block absolute"
-  style="right:3%;top:50%;transform:translateY(-50%);z-index:3;width:248px;pointer-events:none;user-select:none;"
->
-  <div id="hc-inner">
+{
+  firstCard && (
     <div
-      style="background:rgba(18,24,42,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06) inset;"
+      id="hero-tip-card"
+      class="hidden xl:block absolute"
+      style="right:3%;top:50%;transform:translateY(-50%);z-index:3;width:248px;user-select:none;"
     >
-      <!-- header: bright -->
-      <div style="padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.08);">
-        <div
-          style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"
-        >
-          <span
-            id="hc-badge"
-            style="font-family:var(--font-mono);font-size:9px;font-weight:700;border-radius:9999px;padding:2px 9px;letter-spacing:0.12em;text-transform:uppercase;color:#f87171;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.3);"
-            >Laravel</span
-          >
-          <span
-            style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.22);letter-spacing:0.06em;"
-            >new tab</span
-          >
-        </div>
-        <p
-          id="hc-title"
-          style="font-size:12px;font-weight:700;color:#ffffff;margin:0;line-height:1.35;letter-spacing:-0.01em;"
-        >
-          Filter by relationship existence
-        </p>
-      </div>
-      <!-- code: dark -->
-      <div
-        id="hc-code"
-        style="background:#060b14;padding:12px 14px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;border-bottom:1px solid rgba(255,255,255,0.06);"
-      >
-        <div>
-          <span style="color:#7c8fa8;">User</span><span style="color:#c9d1e0;">::</span><span
-            style="color:#79b8ff;">whereHas</span
-          ><span style="color:#c9d1e0;">(</span><span style="color:#85e89d;">'roles'</span><span
-            style="color:#c9d1e0;">, fn (</span
-          ><span style="color:#b392f0;">$q</span><span style="color:#c9d1e0;">) =&gt;</span>
-        </div>
-        <div style="padding-left:12px;">
-          <span style="color:#b392f0;">$q</span><span style="color:#c9d1e0;">-&gt;</span><span
-            style="color:#79b8ff;">where</span
-          ><span style="color:#c9d1e0;">(</span><span style="color:#85e89d;">'name'</span><span
-            style="color:#c9d1e0;"
-            >,
-          </span><span style="color:#85e89d;">'admin'</span><span style="color:#c9d1e0;">)</span>
-        </div>
-        <div>
-          <span style="color:#c9d1e0;">)-&gt;</span><span style="color:#79b8ff;">get</span><span
-            style="color:#c9d1e0;">();</span
-          >
+      <div id="hc-inner">
+        <div style="background:rgba(18,24,42,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06) inset;">
+          <div style="padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <span
+                id="hc-badge"
+                style={`font-family:var(--font-mono);font-size:9px;font-weight:700;border-radius:9999px;padding:2px 9px;letter-spacing:0.12em;text-transform:uppercase;${accentStyle(0)}`}
+              >
+                {firstCard.label}
+              </span>
+              <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:0.06em;">
+                new tab
+              </span>
+            </div>
+            <p
+              id="hc-title"
+              style="font-size:12px;font-weight:700;color:#ffffff;margin:0;line-height:1.35;letter-spacing:-0.01em;"
+            >
+              {firstCard.title}
+            </p>
+          </div>
+          <div
+            id="hc-code"
+            class="hc-code"
+            style="background:#060b14;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;"
+            set:html={firstCard.codeHtml}
+          />
+          <div style="background:rgba(255,255,255,0.04);padding:10px 14px;display:flex;align-items:center;gap:8px;">
+            <img
+              id="hc-avatar"
+              src={`https://github.com/${firstCard.github}.png?size=44`}
+              alt=""
+              width="22"
+              height="22"
+              loading="lazy"
+              style="width:22px;height:22px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,0.1);"
+            />
+            <span
+              id="hc-author"
+              style="font-family:var(--font-mono);font-size:10px;font-weight:600;color:rgba(255,255,255,0.65);"
+            >
+              @{firstCard.github}
+            </span>
+          </div>
         </div>
       </div>
-      <!-- footer: slightly light -->
-      <div
-        style="background:rgba(255,255,255,0.04);padding:10px 14px;display:flex;align-items:center;gap:8px;"
-      >
-        <div
-          id="hc-avatar"
-          style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f87171,#f97316);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;"
-        >
-          A
-        </div>
-        <span
-          id="hc-author"
-          style="font-family:var(--font-mono);font-size:10px;font-weight:600;color:rgba(255,255,255,0.65);"
-          >@artisan</span
-        >
-      </div>
+      <script type="application/json" id="hc-data" set:html={JSON.stringify(cards)} />
     </div>
-  </div>
-</div>
+  )
+}
+
+<style>
+  .hc-code :global(pre) {
+    margin: 0;
+    background: transparent !important;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    line-height: 1.7;
+    white-space: pre;
+  }
+  .hc-code :global(code) {
+    background: transparent !important;
+  }
+</style>
 
 <script>
-  import gsap from "gsap";
+  import { initHeroTipCard } from "@/lib/hero-tip-card-client";
 
-  const hcInner = document.querySelector<HTMLElement>("#hc-inner");
-  if (hcInner) {
-    const hcBadge = document.querySelector<HTMLElement>("#hc-badge")!;
-    const hcTitle = document.querySelector<HTMLElement>("#hc-title")!;
-    const hcCode = document.querySelector<HTMLElement>("#hc-code")!;
-    const hcAvatar = document.querySelector<HTMLElement>("#hc-avatar")!;
-    const hcAuthor = document.querySelector<HTMLElement>("#hc-author")!;
-
-    const BADGE_BASE =
-      "font-family:var(--font-mono);font-size:9px;font-weight:700;border-radius:9999px;padding:2px 9px;letter-spacing:0.12em;text-transform:uppercase;";
-
-    const HC_CARDS = [
-      {
-        label: "Laravel",
-        badgeStyle:
-          "color:#f87171;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.3)",
-        title: "Filter by relationship existence",
-        code: `<div><span style="color:#7c8fa8;">User</span><span style="color:#c9d1e0;">::</span><span style="color:#79b8ff;">whereHas</span><span style="color:#c9d1e0;">(</span><span style="color:#85e89d;">'roles'</span><span style="color:#c9d1e0;">, fn (</span><span style="color:#b392f0;">$q</span><span style="color:#c9d1e0;">) =></span></div><div style="padding-left:12px;"><span style="color:#b392f0;">$q</span><span style="color:#c9d1e0;">-></span><span style="color:#79b8ff;">where</span><span style="color:#c9d1e0;">(</span><span style="color:#85e89d;">'name'</span><span style="color:#c9d1e0;">, </span><span style="color:#85e89d;">'admin'</span><span style="color:#c9d1e0;">)</span></div><div><span style="color:#c9d1e0;">)-></span><span style="color:#79b8ff;">get</span><span style="color:#c9d1e0;">();</span></div>`,
-        avatarGrad: "linear-gradient(135deg,#f87171,#f97316)",
-        avatarLetter: "A",
-        authorHandle: "@artisan",
-      },
-      {
-        label: "React",
-        badgeStyle:
-          "color:#38bdf8;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3)",
-        title: "Stable callbacks with useCallback",
-        code: `<div><span style="color:#c9d1e0;">const </span><span style="color:#79b8ff;">fn</span><span style="color:#c9d1e0;"> = </span><span style="color:#79b8ff;">useCallback</span><span style="color:#c9d1e0;">(() => {</span></div><div style="padding-left:12px;"><span style="color:#79b8ff;">dispatch</span><span style="color:#c9d1e0;">(action);</span></div><div><span style="color:#c9d1e0;">}, [dispatch]);</span></div>`,
-        avatarGrad: "linear-gradient(135deg,#38bdf8,#3b82f6)",
-        avatarLetter: "R",
-        authorHandle: "@hooks-fan",
-      },
-      {
-        label: "TypeScript",
-        badgeStyle:
-          "color:#60a5fa;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.3)",
-        title: "Narrow union types with type guards",
-        code: `<div><span style="color:#c9d1e0;">function </span><span style="color:#79b8ff;">isUser</span><span style="color:#c9d1e0;">(v: </span><span style="color:#b392f0;">unknown</span><span style="color:#c9d1e0;">): v is </span><span style="color:#b392f0;">User</span><span style="color:#c9d1e0;"> {</span></div><div style="padding-left:12px;"><span style="color:#c9d1e0;">return </span><span style="color:#f97316;">!!</span><span style="color:#c9d1e0;">v && </span><span style="color:#85e89d;">'id'</span><span style="color:#c9d1e0;"> in (v as </span><span style="color:#b392f0;">object</span><span style="color:#c9d1e0;">);</span></div><div><span style="color:#c9d1e0;">}</span></div>`,
-        avatarGrad: "linear-gradient(135deg,#60a5fa,#6366f1)",
-        avatarLetter: "T",
-        authorHandle: "@ts-enjoyer",
-      },
-    ];
-
-    let hcIdx = 0;
-
-    function hcApply(d: (typeof HC_CARDS)[0]) {
-      hcBadge.textContent = d.label;
-      hcBadge.setAttribute("style", BADGE_BASE + d.badgeStyle);
-      hcTitle.textContent = d.title;
-      hcCode.innerHTML = d.code;
-      hcAvatar.style.background = d.avatarGrad;
-      hcAvatar.textContent = d.avatarLetter;
-      hcAuthor.textContent = d.authorHandle;
-    }
-
-    function hcShovel() {
-      gsap.to(hcInner, {
-        x: 75,
-        rotation: 10,
-        opacity: 0,
-        duration: 0.32,
-        ease: "power2.in",
-        onComplete() {
-          hcIdx = (hcIdx + 1) % HC_CARDS.length;
-          hcApply(HC_CARDS[hcIdx]);
-          gsap.set(hcInner, { x: -45, rotation: -8, opacity: 0 });
-          gsap.to(hcInner, {
-            x: 0,
-            rotation: 0,
-            opacity: 1,
-            duration: 0.44,
-            ease: "back.out(1.5)",
-          });
-        },
-      });
-    }
-
-    setInterval(hcShovel, 2200);
-  }
+  initHeroTipCard();
 </script>

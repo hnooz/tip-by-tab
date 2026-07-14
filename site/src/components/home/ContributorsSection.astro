@@ -34,7 +34,18 @@ const { founders } = Astro.props;
               href={`/contributors/${github}`}
               class="contrib-card inline-flex items-center gap-[10px] px-[14px] py-[10px] pl-[10px] rounded-lg border border-hairline bg-canvas shadow-1 no-underline transition-[box-shadow,transform] duration-200"
             >
-              <div class="contrib-avatar w-9 h-9 text-[12px]">{initials}</div>
+              <div class="contrib-avatar w-9 h-9 text-[12px] relative overflow-hidden">
+                {initials}
+                <img
+                  src={`https://github.com/${github}.png?size=72`}
+                  alt=""
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                  class="absolute inset-0 w-full h-full rounded-[inherit] object-cover"
+                  onerror="this.remove()"
+                />
+              </div>
               <div>
                 <div class="text-[13px] font-semibold text-ink leading-[1.2]">@{github}</div>
                 <div

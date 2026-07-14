@@ -1,4 +1,4 @@
-# Daily Dev Tip
+# Tip by Tab
 
 > One atomic developer tip per new tab. Community-curated, human-authored, contributor-credited. Each tip is a code snippet (max 15 lines) plus a short explanation of the why.
 
@@ -15,4 +15,4 @@
 
 ## Policy
 
-All tips are human-authored and human-reviewed. Content is open source (MIT) at https://github.com/hnooz/daily-dev-tips. Attribution to the contributor and a link back to the tip page is appreciated when citing.
+All tips are human-authored and human-reviewed. Content is open source (MIT) at https://github.com/hnooz/tip-by-tab. Attribution to the contributor and a link back to the tip page is appreciated when citing.

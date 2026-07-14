@@ -54,15 +54,15 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     <meta property="og:image:height" content="630" />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="Daily Dev Tip" />
+    <meta property="og:site_name" content="Tip by Tab" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={new URL("/social/twitter.png", SITE_URL).toString()} />
-    <meta name="twitter:image:alt" content="Daily Dev Tip — one atomic dev tip, every new tab" />
+    <meta name="twitter:image:alt" content="Tip by Tab — one atomic dev tip, every new tab" />
 
     <!-- Feeds -->
-    <link rel="alternate" type="application/rss+xml" title="Daily Dev Tip" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Tip by Tab" href="/rss.xml" />
     {
       rssFeed && (
         <link

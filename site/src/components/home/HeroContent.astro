@@ -1,12 +1,16 @@
 ---
 // Centered hero copy: eyebrow, title, subtitle, body, CTAs, stats strip.
+import { WEBSTORE_URL } from "@/lib/seo";
+
 interface Props {
   totalTips: number;
   totalContribs: number;
   totalStacks: number;
+  stackNames: string[];
 }
 
-const { totalTips, totalContribs, totalStacks } = Astro.props;
+const { totalTips, totalContribs, totalStacks, stackNames } = Astro.props;
+const firstStack = stackNames[0] ?? "Laravel";
 ---
 
 <div
@@ -29,36 +33,35 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
       style="font-family:var(--font-serif);font-size:clamp(52px, 7.5vw, 92px);font-weight:600;line-height:0.96;letter-spacing:-0.035em;color:#ffffff;margin:0 0 20px;"
     >
       One<br />
-      <em style="font-style: italic; color: rgba(255,255,255,0.55);">atomic</em><br />
+      <em style="font-style: italic; color: rgba(255,255,255,0.65);">atomic</em><br />
       tip per tab.
     </h1>
 
     <p
       data-hero="sub"
-      class="gradient-text"
-      style="font-family:var(--font-serif);font-size:clamp(18px, 2.2vw, 26px);font-weight:600;font-style:italic;line-height:1.3;margin:0 auto 20px;max-width:480px;"
+      style="font-family:var(--font-serif);font-size:clamp(18px, 2.2vw, 26px);font-weight:600;font-style:italic;line-height:1.3;color:#b9b9f9;margin:0 auto 20px;max-width:480px;"
     >
       Your name on every reader's new tab.
     </p>
 
     <p
       data-hero="body"
-      style="font-size:16px;font-weight:600;line-height:1.65;color:rgba(255,255,255,0.55);max-width:400px;margin:0 auto 36px;"
+      style="font-size:16px;font-weight:600;line-height:1.65;color:rgba(255,255,255,0.72);max-width:400px;margin:0 auto 36px;"
     >
-      Atomic developer tips for <span
+      A free browser extension for <span
         id="stack-cycle"
         class="min-w-16"
         style="color:#b9b9f9;display:inline-block;transition:opacity 0.28s ease,transform 0.28s ease;"
-        >Laravel</span
-      > engineers. Open a new tab. Learn one thing. Ship better code.
+        >{firstStack}</span
+      > engineers. Every new tab shows one tip. Learn one thing, ship better code.
     </p>
+    <script type="application/json" id="stack-cycle-data" set:html={JSON.stringify(stackNames)} />
 
     <div data-hero="cta" class="flex flex-wrap items-center justify-center gap-3">
       <a
-        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        href={WEBSTORE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        data-magnetic
         style="display:inline-flex;align-items:center;gap:8px;background:#ffffff;color:#0c1220;font-size:15px;font-weight:600;padding:13px 28px;border-radius:9999px;text-decoration:none;transition:opacity 0.15s;white-space:nowrap;"
       >
         Install for Chrome — free
@@ -74,13 +77,23 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
       </a>
       <a
         href="/contribute"
-        style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.5);font-size:15px;font-weight:600;padding:13px 16px;text-decoration:none;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);transition:color 0.2s, border-color 0.2s;white-space:nowrap;"
-        onmouseenter="this.style.color='rgba(255,255,255,0.85)';this.style.borderColor='rgba(255,255,255,0.3)'"
-        onmouseleave="this.style.color='rgba(255,255,255,0.5)';this.style.borderColor='rgba(255,255,255,0.12)'"
+        style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.72);font-size:15px;font-weight:600;padding:13px 16px;text-decoration:none;border-radius:9999px;border:1px solid rgba(255,255,255,0.14);transition:color 0.2s, border-color 0.2s;white-space:nowrap;"
+        onmouseenter="this.style.color='rgba(255,255,255,0.95)';this.style.borderColor='rgba(255,255,255,0.3)'"
+        onmouseleave="this.style.color='rgba(255,255,255,0.72)';this.style.borderColor='rgba(255,255,255,0.14)'"
       >
         Contribute a tip →
       </a>
     </div>
+
+    <p
+      data-hero="trust"
+      style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.65);margin:16px auto 0;"
+    >
+      No tracking. No account. Press <kbd
+        style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.25);border-radius:4px;padding:1px 6px;"
+        >Esc</kbd
+      >, get a blank tab.
+    </p>
 
     <!-- Mini stats strip -->
     <div
@@ -101,7 +114,7 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
             >
               {val}
             </span>
-            <span style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.02em;">
+            <span style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); letter-spacing: 0.02em;">
               {label}
             </span>
           </div>
@@ -112,51 +125,7 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
 </div>
 
 <script>
-  import gsap from "gsap";
+  import { initStackCycle } from "@/lib/hero-content-client";
 
-  /* ── Cycling stack name in hero body ─────────────────── */
-  const cycleEl = document.querySelector<HTMLElement>("#stack-cycle");
-  if (cycleEl) {
-    const stacks = [
-      "Laravel",
-      "Vue",
-      "NestJS",
-      "Node.js",
-      "React",
-      "Next.js",
-      "Angular",
-      "Go",
-      "TypeScript",
-      "Python",
-      "PHP",
-      "Nuxt",
-    ];
-    let idx = 0;
-    setInterval(() => {
-      cycleEl.style.opacity = "0";
-      cycleEl.style.transform = "translateY(6px)";
-      setTimeout(() => {
-        idx = (idx + 1) % stacks.length;
-        cycleEl.textContent = stacks[idx];
-        cycleEl.style.opacity = "1";
-        cycleEl.style.transform = "translateY(0)";
-      }, 280);
-    }, 2500);
-  }
-
-  /* ── Magnetic CTA button ─────────────────────────────── */
-  const magBtn = document.querySelector<HTMLElement>("[data-magnetic]");
-  if (magBtn) {
-    const xTo = gsap.quickTo(magBtn, "x", { duration: 0.45, ease: "power3" });
-    const yTo = gsap.quickTo(magBtn, "y", { duration: 0.45, ease: "power3" });
-    magBtn.addEventListener("mousemove", (e) => {
-      const r = magBtn.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * 0.35);
-      yTo((e.clientY - (r.top + r.height / 2)) * 0.35);
-    });
-    magBtn.addEventListener("mouseleave", () => {
-      xTo(0);
-      yTo(0);
-    });
-  }
+  initStackCycle();
 </script>

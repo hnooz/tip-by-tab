@@ -1,15 +1,18 @@
 ---
 import HeroIcons from "./HeroIcons.astro";
 import HeroTipCard from "./HeroTipCard.astro";
+import type { HeroTip } from "@/lib/hero-tip-card";
 import HeroContent from "./HeroContent.astro";
 
 interface Props {
   totalTips: number;
   totalContribs: number;
   totalStacks: number;
+  heroTips: HeroTip[];
+  stackNames: string[];
 }
 
-const { totalTips, totalContribs, totalStacks } = Astro.props;
+const { totalTips, totalContribs, totalStacks, heroTips, stackNames } = Astro.props;
 ---
 
 <section
@@ -26,11 +29,11 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
 >
   <!-- Mesh aurora blobs -->
   <div aria-hidden="true" style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
-    <div class="mesh-blob-dark mesh-blob-dark-cream" data-blob="cream"></div>
-    <div class="mesh-blob-dark mesh-blob-dark-magenta" data-blob="magenta"></div>
-    <div class="mesh-blob-dark mesh-blob-dark-lavender" data-blob="lavender"></div>
-    <div class="mesh-blob-dark mesh-blob-dark-indigo" data-blob="indigo"></div>
-    <div class="mesh-blob-dark mesh-blob-dark-ruby" data-blob="ruby"></div>
+    <div class="mesh-blob-dark mesh-blob-dark-cream"></div>
+    <div class="mesh-blob-dark mesh-blob-dark-magenta"></div>
+    <div class="mesh-blob-dark mesh-blob-dark-lavender"></div>
+    <div class="mesh-blob-dark mesh-blob-dark-indigo"></div>
+    <div class="mesh-blob-dark mesh-blob-dark-ruby"></div>
   </div>
 
   <!-- Subtle grid overlay for depth -->
@@ -51,8 +54,13 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
   </div>
 
   <HeroIcons />
-  <HeroTipCard />
-  <HeroContent totalTips={totalTips} totalContribs={totalContribs} totalStacks={totalStacks} />
+  <HeroTipCard tips={heroTips} />
+  <HeroContent
+    totalTips={totalTips}
+    totalContribs={totalContribs}
+    totalStacks={totalStacks}
+    stackNames={stackNames}
+  />
 
   <!-- Bottom fade to white -->
   <div
@@ -75,62 +83,58 @@ const { totalTips, totalContribs, totalStacks } = Astro.props;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── Mesh aurora blob drift ─────────────────────────────── */
-  const blobMotion: Record<string, [number, number, number, number]> = {
-    cream: [80, 40, 9, 0],
-    magenta: [-60, 55, 11, 1.5],
-    lavender: [50, -45, 8, 0.8],
-    indigo: [-70, 65, 13, 2],
-    ruby: [42, -55, 10, 0.5],
-  };
+  gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+    /* ── Hero entrance — fromTo eliminates the opacity-0 CSS bug ── */
+    gsap
+      .timeline({ defaults: { ease: "power3.out" } })
+      .fromTo(
+        "[data-hero='eyebrow']",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.65 },
+        0.15
+      )
+      .fromTo(
+        "[data-hero='title']",
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.85 },
+        0.3
+      )
+      .fromTo("[data-hero='sub']", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.7 }, 0.55)
+      .fromTo("[data-hero='body']", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.7)
+      .fromTo("[data-hero='cta']", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.85)
+      .fromTo(
+        "[data-hero='trust']",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.55 },
+        0.95
+      )
+      .fromTo(
+        "[data-hero='stats']",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.55 },
+        1.05
+      );
 
-  document.querySelectorAll<HTMLElement>("[data-blob]").forEach((el) => {
-    const key = el.dataset.blob as string;
-    const cfg = blobMotion[key];
-    if (!cfg) return;
-    const [x, y, dur, delay] = cfg;
-    gsap.to(el, { x, y, duration: dur, ease: "sine.inOut", yoyo: true, repeat: -1, delay });
-  });
-
-  /* ── Hero entrance — fromTo eliminates the opacity-0 CSS bug ── */
-  gsap
-    .timeline({ defaults: { ease: "power3.out" } })
-    .fromTo(
-      "[data-hero='eyebrow']",
-      { opacity: 0, y: 18 },
-      { opacity: 1, y: 0, duration: 0.65 },
-      0.15
-    )
-    .fromTo("[data-hero='title']", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.85 }, 0.3)
-    .fromTo("[data-hero='sub']", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.7 }, 0.55)
-    .fromTo("[data-hero='body']", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.7)
-    .fromTo("[data-hero='cta']", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.85)
-    .fromTo(
-      "[data-hero='stats']",
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.55 },
-      1.0
-    );
-
-  /* ── Stat counter animation ─────────────────────────────── */
-  document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
-    const target = parseInt(el.dataset.count ?? "0", 10);
-    if (!target) return;
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 80%",
-      once: true,
-      onEnter() {
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: target,
-          duration: 1.8,
-          ease: "power2.out",
-          onUpdate() {
-            el.textContent = Math.round(obj.val).toString();
-          },
-        });
-      },
+    /* ── Stat counter animation ─────────────────────────────── */
+    document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+      const target = parseInt(el.dataset.count ?? "0", 10);
+      if (!target) return;
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 80%",
+        once: true,
+        onEnter() {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.8,
+            ease: "power2.out",
+            onUpdate() {
+              el.textContent = Math.round(obj.val).toString();
+            },
+          });
+        },
+      });
     });
   });
 </script>

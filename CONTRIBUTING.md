@@ -1,4 +1,4 @@
-# Contributing to Daily Dev Tip
+# Contributing to Tip by Tab
 
 First — thank you. Every merged tip lands on the new-tab page of developers around the world, with **your name and GitHub profile attached**. That's the deal: you teach one thing, you get credit forever.
 

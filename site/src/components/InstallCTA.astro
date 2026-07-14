@@ -1,4 +1,6 @@
 ---
+import { WEBSTORE_URL } from "@/lib/seo";
+
 interface Props {
   variant?: "banner" | "block";
 }
@@ -12,7 +14,7 @@ const { variant = "block" } = Astro.props;
         This tip lives in your new tab — for free.
       </p>
       <a
-        href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+        href={WEBSTORE_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="btn-primary shrink-0 text-[13px] px-4 py-2"
@@ -40,7 +42,7 @@ const { variant = "block" } = Astro.props;
         </p>
         <div class="flex items-center justify-center gap-4 flex-wrap">
           <a
-            href="https://chrome.google.com/webstore/detail/daily-dev-tip"
+            href={WEBSTORE_URL}
             target="_blank"
             rel="noopener noreferrer"
             class="btn-primary text-[14px] px-6 py-[10px]"

@@ -1,11 +1,11 @@
-# Daily Dev Tip
+# Tip by Tab
 
-[![validate](https://github.com/hnooz/daily-dev-tips/actions/workflows/validate.yml/badge.svg)](https://github.com/hnooz/daily-dev-tips/actions/workflows/validate.yml)
-[![deploy site](https://github.com/hnooz/daily-dev-tips/actions/workflows/deploy-site.yml/badge.svg)](https://github.com/hnooz/daily-dev-tips/actions/workflows/deploy-site.yml)
+[![validate](https://github.com/hnooz/tip-by-tab/actions/workflows/validate.yml/badge.svg)](https://github.com/hnooz/tip-by-tab/actions/workflows/validate.yml)
+[![deploy site](https://github.com/hnooz/tip-by-tab/actions/workflows/deploy-site.yml/badge.svg)](https://github.com/hnooz/tip-by-tab/actions/workflows/deploy-site.yml)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![jsDelivr hits](https://data.jsdelivr.com/v1/package/gh/hnooz/daily-dev-tips/badge)](https://www.jsdelivr.com/package/gh/hnooz/daily-dev-tips)
+[![jsDelivr hits](https://data.jsdelivr.com/v1/package/gh/hnooz/tip-by-tab/badge)](https://www.jsdelivr.com/package/gh/hnooz/tip-by-tab)
 
-A community-curated knowledge base of atomic developer tips, delivered through a browser-extension new-tab page and a public site at **[dailydevtip.dev](https://dailydevtips.mohammededris23.workers.dev/)**. Each new tab shows one bite-sized tip — code first, short explanation, and the contributor's GitHub handle. Your handle renders in every reader's new tab: that recognition loop is the engine, not a side feature.
+A community-curated knowledge base of atomic developer tips, delivered through a browser-extension new-tab page and a public site at **[tipbytab.moidris.com](https://tipbytab.moidris.com/)**. Each new tab shows one bite-sized tip — code first, short explanation, and the contributor's GitHub handle. Your handle renders in every reader's new tab: that recognition loop is the engine, not a side feature.
 
 - **Zero backend.** GitHub is the platform: tips are Markdown PRs, moderation is PR review, attribution is commit history, the CDN is jsDelivr. Cost $0.
 - **No telemetry, no tracking, no accounts.** Every tip is human-authored and human-reviewed.
@@ -86,7 +86,7 @@ The extension never bundles tips — it fetches JSON at runtime. `BASE` in the e
 | Build | Tips source |
 |---|---|
 | `bun run dev` | `http://localhost:8787/dist` |
-| `bun run build` (prod) | `https://cdn.jsdelivr.net/gh/hnooz/daily-dev-tips@main/dist` |
+| `bun run build` (prod) | `https://cdn.jsdelivr.net/gh/hnooz/tip-by-tab@main/dist` |
 | fetch fails | bundled `assets/fallback.json` |
 
 **Local loop** — serve this repo's root (not `dist/` itself; `BASE` includes the `/dist` prefix) with CORS enabled, since the new-tab page fetches cross-origin without a localhost host permission:
