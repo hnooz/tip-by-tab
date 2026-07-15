@@ -111,6 +111,12 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     </main>
     <Footer />
 
+    <script>
+      import { initInstallCta } from "@/lib/install-cta-client";
+
+      initInstallCta();
+    </script>
+
     <!-- Theme toggle script -->
     <script>
       document.addEventListener("click", (e) => {
