@@ -51,6 +51,14 @@ async function main() {
     });
   }
 
+  const stacksDir = path.join(DIST, "stacks");
+  const keep = new Set(STACKS.map((s) => `${s}.json`));
+  for (const file of await fs.readdir(stacksDir)) {
+    if (file.endsWith(".json") && !keep.has(file)) {
+      await fs.rm(path.join(stacksDir, file));
+    }
+  }
+
   await fs.writeFile(path.join(DIST, "rotation.json"), JSON.stringify(rotation, null, 2));
   await fs.writeFile(path.join(DIST, "index.json"), JSON.stringify(index, null, 2));
   await fs.writeFile(
